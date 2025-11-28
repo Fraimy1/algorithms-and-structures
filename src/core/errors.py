@@ -3,3 +3,6 @@ class NegativeNumberError(Exception):
 
 class IncorrectInputError(Exception):
     pass
+
+class EmptyError(Exception):
+    pass
