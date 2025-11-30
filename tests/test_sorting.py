@@ -1,5 +1,4 @@
-from src.sorting import bubble_sort, counting_sort, radix_sort
-from src.core.errors import EmptyError
+from src.sorting import bubble_sort, bucket_sort, counting_sort, radix_sort
 
 import pytest
 
@@ -41,3 +40,24 @@ radix_test_cases = (
 @pytest.mark.parametrize(*radix_test_cases)
 def test_radix_sort(input_arr, sorted_arr):
     assert radix_sort(input_arr) == sorted_arr
+
+
+bucket_test_cases = (
+    "input_arr, sorted_arr",
+    [
+        ([], []),
+        ([0.0], [0.0]),
+        ([0.1, 0.2, 0.3], [0.1, 0.2, 0.3]),
+        ([0.3, 0.2, 0.1], [0.1, 0.2, 0.3]),
+        ([0.12, 0.87, 0.33, 0.29, 0.01],
+         [0.01, 0.12, 0.29, 0.33, 0.87]),
+        ([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]),
+        ([0.99, 0.01, 0.5, 0.25, 0.75],
+         [0.01, 0.25, 0.5, 0.75, 0.99]),
+        ([0.19, 0.21, 0.2], [0.19, 0.2, 0.21]),
+    ],
+)
+
+@pytest.mark.parametrize(*bucket_test_cases)
+def test_bucket_sort(input_arr, sorted_arr):
+    assert bucket_sort(input_arr) == sorted_arr

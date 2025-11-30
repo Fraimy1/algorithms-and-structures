@@ -1,4 +1,5 @@
-from src.core.errors import EmptyError, NegativeNumberError
+from src.core.errors import NegativeNumberError
+from src.core.errors import OutOfRangeError
 
 def bubble_sort(arr: list[int]) -> list[int]:
     had_swaps = False
@@ -13,7 +14,7 @@ def bubble_sort(arr: list[int]) -> list[int]:
                 arr[i] = tmp
                 had_swaps = True
 
-        if had_swaps == False:
+        if not had_swaps:
             break
 
     return arr
@@ -81,3 +82,21 @@ def radix_sort(arr: list, base: int = 10) -> list[int]:
         buckets = [[] for _ in range(base)]
 
     return arr
+
+def bucket_sort(arr: list[float], n_buckets: int = 10) -> list[float]:
+    """
+    Bucket sort only works for floats between 0 and 1
+    """
+    if any(n < 0 or n > 1 for n in arr):
+        raise OutOfRangeError("Bucket sort only works for floats between 0 and 1")
+
+    buckets = [[] for _ in range(n_buckets)]
+    for n in arr:
+        index = int(n * n_buckets)
+        buckets[index].append(n)
+
+    for i, bucket in enumerate(buckets):
+        buckets[i] = bubble_sort(bucket)
+    
+    return flatten(buckets)
+

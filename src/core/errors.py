@@ -6,3 +6,6 @@ class IncorrectInputError(Exception):
 
 class EmptyError(Exception):
     pass
+
+class OutOfRangeError(Exception):
+    pass
