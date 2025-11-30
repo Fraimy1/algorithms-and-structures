@@ -1,5 +1,6 @@
 from src.sorting.linear import bucket_sort, counting_sort, radix_sort
 from src.sorting.comparison import bubble_sort, heap_sort, quick_sort
+from src.core.errors import NegativeNumberError
 
 import pytest
 
@@ -34,13 +35,24 @@ def test_counting_sort(input_arr, sorted_arr):
     assert counting_sort(input_arr) == sorted_arr
 
 radix_test_cases = (
-    "input_arr, sorted_arr",
-    test_cases[:-3]
+    test_cases[0],
+    test_cases[1][:-3]
 )
 
 @pytest.mark.parametrize(*radix_test_cases)
 def test_radix_sort(input_arr, sorted_arr):
     assert radix_sort(input_arr) == sorted_arr
+
+
+@pytest.mark.parametrize("input_arr", [
+    [-1, 0, 5, -2],
+    [-100, -50, -75],
+    [-5, 5],
+    [-1],
+])
+def test_radix_sort_negative_numbers(input_arr):
+    with pytest.raises(NegativeNumberError):
+        radix_sort(input_arr)
 
 
 bucket_test_cases = (
