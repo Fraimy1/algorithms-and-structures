@@ -1,4 +1,5 @@
-from src.sorting import bubble_sort, bucket_sort, counting_sort, heap_sort, radix_sort
+from src.sorting.linear import bucket_sort, counting_sort, radix_sort
+from src.sorting.comparison import bubble_sort, heap_sort, quick_sort
 
 import pytest
 
@@ -66,3 +67,7 @@ def test_bucket_sort(input_arr, sorted_arr):
 @pytest.mark.parametrize(*test_cases)
 def test_heap_sort(input_arr, sorted_arr):
     assert heap_sort(input_arr) == sorted_arr
+
+@pytest.mark.parametrize(*test_cases)
+def test_quick_sort(input_arr, sorted_arr):
+    assert quick_sort(input_arr) == sorted_arr

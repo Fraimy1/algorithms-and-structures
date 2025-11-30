@@ -63,4 +63,35 @@ def heap_sort(arr: list[int]) -> list[int]:
 
 
 def quick_sort(arr: list[int]) -> list[int]:
-    ...
+    
+    def _partition(left:int, right:int) -> int:
+        """Makes a partition and returns index of middle element"""
+        l = left
+        pivot = right - 1
+        r = pivot - 1
+
+        while l < r:
+            if arr[l] >= arr[pivot] and arr[r] < arr[pivot]:
+                _swap(arr, l, r)
+            
+            if arr[l] < arr[pivot]:
+                l += 1
+            
+            if arr[r] >= arr[pivot]:
+                r -= 1
+        
+        _swap(arr, l, pivot)
+        pivot = l
+
+        return pivot
+    
+    def _sort(left:int, right:int):
+        if left - right <= 1: return
+        
+        pivot = _partition(left, right)
+        
+        _sort(left, pivot)
+        _sort(pivot+1, right)
+
+    _sort(0, len(arr)-1)
+    return arr
