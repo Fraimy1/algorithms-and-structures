@@ -1,3 +1,5 @@
+from src.core.errors import EmptyError, NegativeNumberError
+
 def bubble_sort(arr: list[int]) -> list[int]:
     had_swaps = False
 
@@ -16,7 +18,7 @@ def bubble_sort(arr: list[int]) -> list[int]:
 
     return arr
 
-def get_min_max(arr: list[int]) -> tuple[int, int]: 
+def _get_min_max(arr: list[int]) -> tuple[int, int]: 
     cur_min, cur_max = 0, 0
 
     for n in arr:
@@ -29,7 +31,7 @@ def get_min_max(arr: list[int]) -> tuple[int, int]:
 
 def counting_sort(arr: list) -> list[int]:
     
-    min_n, max_n = get_min_max(arr)
+    min_n, max_n = _get_min_max(arr)
     
     shift = 0
     if min_n < 0:
@@ -42,3 +44,40 @@ def counting_sort(arr: list) -> list[int]:
         counts[n+shift] +=1
     
     return [value-shift for value, count in enumerate(counts, start=min_n) for _ in range(count)]
+
+def flatten(arrays: list[list]) -> list:
+    return [el for arr in arrays for el in arr]
+
+def radix_sort(arr: list, base: int = 10) -> list[int]:
+    """
+    Radix sort only works for positive numbers
+    """
+    if any(n < 0 for n in arr):
+        raise NegativeNumberError("Radix sort only works for positive numbers") 
+
+    if not arr:
+        return arr
+    
+    if len(arr) ==1:
+        return arr
+
+    buckets = [[] for _ in range(base)]
+    
+    max_n = max(arr)
+    n_digits = len(str(abs(max_n)))
+
+    for i in range(n_digits):
+        # i = i digits from the end
+        # e.g. 1 is tens, 2 is 100s etc.
+
+        for n in arr:
+            # get the i last digit of n
+            # digit = int(str(abs(n))[-(i+1)])
+            exp = base**i
+            digit = (n // exp) % base
+            buckets[digit].append(n)
+        
+        arr = flatten(buckets)
+        buckets = [[] for _ in range(base)]
+
+    return arr
