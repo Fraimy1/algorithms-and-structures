@@ -1,4 +1,4 @@
-from src.sorting import bubble_sort, bucket_sort, counting_sort, radix_sort
+from src.sorting import bubble_sort, bucket_sort, counting_sort, heap_sort, radix_sort
 
 import pytest
 
@@ -61,3 +61,8 @@ bucket_test_cases = (
 @pytest.mark.parametrize(*bucket_test_cases)
 def test_bucket_sort(input_arr, sorted_arr):
     assert bucket_sort(input_arr) == sorted_arr
+
+
+@pytest.mark.parametrize(*test_cases)
+def test_heap_sort(input_arr, sorted_arr):
+    assert heap_sort(input_arr) == sorted_arr
