@@ -1,11 +1,15 @@
 class NegativeNumberError(Exception):
-    pass
+    def __init__(self, message: str):
+        self.message = message
 
 class IncorrectInputError(Exception):
-    pass
+    def __init__(self, message: str):
+        self.message = message
 
 class EmptyError(Exception):
-    pass
+    def __init__(self, message: str):
+        self.message = message
 
 class OutOfRangeError(Exception):
-    pass
+    def __init__(self, message: str):
+        self.message = message

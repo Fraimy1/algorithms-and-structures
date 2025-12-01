@@ -1,9 +1,9 @@
 from src.core.errors import NegativeNumberError
-
+from src.core.logging import log_and_raise
 
 def factorial(n: int) -> int:
     if n < 0:
-        raise NegativeNumberError("Factorial is not defined for negative numbers")
+        log_and_raise(NegativeNumberError("Factorial is not defined for negative numbers"))
     
     res = 1
     for i in range(2, n+1):
@@ -13,7 +13,7 @@ def factorial(n: int) -> int:
 
 def factorial_recursive(n: int) -> int:
     if n < 0:
-        raise NegativeNumberError("Factorial is not defined for negative numbers")
+        log_and_raise(NegativeNumberError("Factorial is not defined for negative numbers"))
     
     if n == 0:
         return 1
@@ -29,7 +29,7 @@ def factorial_recursive(n: int) -> int:
 
 def fibo(n: int) -> int:
     if n < 0:
-        raise NegativeNumberError("Fibonacci is not defined for negative numbers")
+        log_and_raise(NegativeNumberError("Fibonacci is not defined for negative numbers"))
     
     if n == 0:
         return 0
@@ -48,7 +48,7 @@ def fibo(n: int) -> int:
 
 def fibo_recursive(n: int) -> int:
     if n < 0:
-        raise NegativeNumberError("Fibonacci is not defined for negative numbers")
+        log_and_raise(NegativeNumberError("Fibonacci is not defined for negative numbers"))
     if n == 0:
         return 0
     if n == 1:

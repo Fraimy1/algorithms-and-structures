@@ -1,4 +1,5 @@
 from src.core.errors import EmptyError
+from src.core.logging import log_and_raise
 
 class Queue:
     def __init__(self) -> None:
@@ -26,7 +27,7 @@ class Queue:
         self._move_in_to_out()
 
         if not self._out_stack:
-            raise EmptyError("Queue is empty")
+            log_and_raise(EmptyError("Queue is empty"))
 
         return self._out_stack.pop()
 
@@ -38,7 +39,7 @@ class Queue:
         self._move_in_to_out()
 
         if not self._out_stack:
-            raise EmptyError("Queue is empty")
+            log_and_raise(EmptyError("Queue is empty"))
 
         return self._out_stack[-1]
 

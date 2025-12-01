@@ -1,6 +1,7 @@
 # counting, radix, bucket
 from src.core.errors import NegativeNumberError
 from src.core.errors import OutOfRangeError
+from src.core.logging import log_and_raise
 from src.sorting.comparison import bubble_sort
 
 def _get_min_max(arr: list[int]) -> tuple[int, int]: 
@@ -38,7 +39,7 @@ def radix_sort(arr: list, base: int = 10) -> list[int]:
     Radix sort only works for positive numbers
     """
     if any(n < 0 for n in arr):
-        raise NegativeNumberError("Radix sort only works for positive numbers") 
+        log_and_raise(NegativeNumberError("Radix sort only works for positive numbers")) 
 
     if not arr:
         return arr
@@ -72,7 +73,7 @@ def bucket_sort(arr: list[float], n_buckets: int | None = 10) -> list[float]:
     Bucket sort only works for floats between 0 and 1
     """
     if any(n < 0 or n > 1 for n in arr):
-        raise OutOfRangeError("Bucket sort only works for floats between 0 and 1")
+        log_and_raise(OutOfRangeError("Bucket sort only works for floats between 0 and 1"))
 
     if n_buckets is None:
         n_buckets = 10

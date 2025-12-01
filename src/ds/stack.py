@@ -1,4 +1,5 @@
 from src.core.errors import EmptyError
+from src.core.logging import log_and_raise
 
 class Stack:
     def __init__(self) -> None:
@@ -21,7 +22,7 @@ class Stack:
         Raise EmptyError if the stack is empty.
         """
         if not self._data:
-            raise EmptyError("Stack is empty")
+            log_and_raise(EmptyError("Stack is empty"))
 
         popped = self._data.pop()
 
@@ -36,7 +37,7 @@ class Stack:
         Raise EmptyError if the stack is empty.
         """
         if not self._data:
-            raise EmptyError("Stack is empty")
+            log_and_raise(EmptyError("Stack is empty"))
 
         return self._data[-1]
 
@@ -55,6 +56,6 @@ class Stack:
         Raise EmptyError if the stack is empty.
         """
         if not self._mins:
-            raise EmptyError("Stack is empty")            
+            log_and_raise(EmptyError("Stack is empty"))            
 
         return self._mins[-1]
