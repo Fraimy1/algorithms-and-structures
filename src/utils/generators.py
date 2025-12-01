@@ -1,10 +1,10 @@
 import random
-from src.core.errors import IncorrectInputError
-from src.utils.validators import BoundsValidator
+from src.utils.validators import GeneratorValidator
 
-
-@BoundsValidator(check_distinct=True)
 def rand_int_array(n: int, lo: int, hi: int, *, distinct=False, seed=None) -> list[int]: 
+    if GeneratorValidator.check_rand_int_array(n, lo, hi, distinct=distinct) == []:
+        return []
+
     rng = random.Random(seed)
 
     if distinct:
@@ -19,6 +19,9 @@ def _swap(arr: list, a:int, b:int) -> None:
     arr[b] = tmp
 
 def nearly_sorted(n: int, swaps: int, *, seed=None) ->list[int]: 
+    if GeneratorValidator.check_nearly_sorted(n, swaps) == []:
+        return []
+
     rng = random.Random(seed)
     
     arr = list(range(n))
@@ -31,11 +34,7 @@ def nearly_sorted(n: int, swaps: int, *, seed=None) ->list[int]:
         
 
 def many_duplicates(n: int, k_unique=5, *, seed=None) -> list[int]: 
-    if n < 0:
-        raise IncorrectInputError(f"n must be non-negative. But recieved n = {n}")
-    if k_unique > n:
-        raise IncorrectInputError(f"k_unique must be less than or equal to n. But recieved k_unique = {k_unique} > n = {n}")
-    if n == 0:
+    if GeneratorValidator.check_many_duplicates(n, k_unique) == []:
         return []
 
     rng = random.Random(seed)
@@ -53,18 +52,16 @@ def many_duplicates(n: int, k_unique=5, *, seed=None) -> list[int]:
     return arr
 
 def reverse_sorted(n: int) -> list[int]: 
-    if n < 0:
-        raise IncorrectInputError(f"n must be non-negative. But recieved n = {n}")
-    if n == 0:
+    if GeneratorValidator.check_reverse_sorted(n) == []:
         return []
 
     return list(range(n, 0, -1))
 
-@BoundsValidator(check_distinct=False)
+
 def rand_float_array(n: int, lo=0.0, hi=1.0, *, seed=None) -> list[float]: 
+    if GeneratorValidator.check_rand_float_array(n, lo, hi) == []:
+        return []
+
     rng = random.Random(seed)
 
     return [rng.uniform(lo, hi) for _ in range(n)]
-
-#TODO: Add handling for all edge cases and put them in validators.py
-#TODO: Add tests for all generators
