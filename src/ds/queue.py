@@ -15,7 +15,7 @@ class Queue:
         """
         Moves all elements from _in_stack to _out_stack
         """
-        if not self._out_stack:                
+        if not self._out_stack:
             while self._in_stack:
                 self._out_stack.append(self._in_stack.pop())
 

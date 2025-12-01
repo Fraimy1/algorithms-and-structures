@@ -2,7 +2,7 @@ from src.sorting.linear import bucket_sort, counting_sort, radix_sort
 from src.sorting.comparison import bubble_sort, heap_sort, quick_sort
 from src.core.errors import NegativeNumberError
 
-import pytest
+import pytest  # type: ignore[import-not-found]
 
 test_cases = (
     "input_arr, sorted_arr",
@@ -18,7 +18,7 @@ test_cases = (
         ([0, 1000000], [0, 1000000]),
         ([3, 3, 3, 0], [0, 3, 3, 3]),
         ([10, 0, 10, 0, 10], [0, 0, 10, 10, 10]),
-        
+
         ([-1, 0, 5, -2], [-2, -1, 0, 5]),
         ([-100, -50, -75], [-100, -75, -50]),
         ([-5, 5], [-5, 5]),

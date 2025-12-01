@@ -1,7 +1,7 @@
 from src.algorithms.factorial_fibo import factorial, factorial_recursive, fibo, fibo_recursive
 from src.core.errors import NegativeNumberError
 
-import pytest
+import pytest  # type: ignore[import-not-found]
 
 @pytest.mark.parametrize("n, result", [
     (1, 1),

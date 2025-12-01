@@ -4,8 +4,8 @@ from src.core.logging import log_and_raise
 class Stack:
     def __init__(self) -> None:
         """Initialize an empty stack."""
-        self._data = []
-        self._mins = []
+        self._data: list[int] = []
+        self._mins: list[int] = []
 
     def push(self, x: int) -> None:
         """Push value x on top of the stack."""
@@ -15,7 +15,7 @@ class Stack:
             self._mins.append(x)
         elif x <= self._mins[-1]:
             self._mins.append(x)
-            
+
     def pop(self) -> int:
         """
         Remove and return the top element.
@@ -28,7 +28,7 @@ class Stack:
 
         if popped == self._mins[-1]:
             self._mins.pop()
-        
+
         return popped
 
     def peek(self) -> int:
@@ -56,6 +56,6 @@ class Stack:
         Raise EmptyError if the stack is empty.
         """
         if not self._mins:
-            log_and_raise(EmptyError("Stack is empty"))            
+            log_and_raise(EmptyError("Stack is empty"))
 
         return self._mins[-1]

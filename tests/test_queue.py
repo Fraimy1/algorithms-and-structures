@@ -1,16 +1,16 @@
-import pytest
+import pytest  # type: ignore[import-not-found]
 from src.ds.queue import Queue
 from src.core.errors import EmptyError
 
 def test_enqueue_and_front():
     queue = Queue()
     assert queue.is_empty()
-    
+
     queue.enqueue(1)
     queue.enqueue(2)
     queue.enqueue(3)
 
-    assert not queue.is_empty() 
+    assert not queue.is_empty()
     assert queue.front() == 1
 
 def test_dequeue():
@@ -45,4 +45,3 @@ def test_len():
     assert len(queue) == 1
     queue.dequeue()
     assert len(queue) == 0
-

@@ -1,16 +1,16 @@
-import pytest
+import pytest  # type: ignore[import-not-found]
 from src.ds.stack import Stack
 from src.core.errors import EmptyError
 
 def test_push_and_peek():
     stack = Stack()
     assert stack.is_empty()
-    
+
     stack.push(1)
     stack.push(2)
     stack.push(3)
 
-    assert not stack.is_empty() 
+    assert not stack.is_empty()
     assert stack.peek() == 3
 
 def test_pop():
@@ -62,4 +62,3 @@ def test_len():
     assert len(stack) == 1
     stack.pop()
     assert len(stack) == 0
-

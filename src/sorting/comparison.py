@@ -1,6 +1,6 @@
 # bubble, quick, heap
 
-def bubble_sort(arr: list[int]) -> list[int]:
+def bubble_sort(arr: list) -> list:
     had_swaps = False
 
     while True:
@@ -30,10 +30,10 @@ def heapify(arr:list[int], parent:int, limit:int) -> None:
         right = 2*parent + 2
 
         largest = parent
-        
+
         if left < limit and arr[left] > arr[largest]:
             largest = left
-            
+
         if right < limit and arr[right] > arr[largest]:
             largest = right
 
@@ -49,47 +49,48 @@ def heap_sort(arr: list[int]) -> list[int]:
     last_non_leaf = len(arr) // 2 - 1
     for i in range(last_non_leaf, -1, -1):
         heapify(arr, i, len(arr))
-    
+
     #Sort down - phase 2
     end = len(arr) - 1
     while end > 0:
         _swap(arr, 0, end)
-        
+
         heapify(arr, 0, end)
-        
+
         end -= 1
-    
+
     return arr
 
 
 def quick_sort(arr: list[int]) -> list[int]:
-    
+
     def _partition(left:int, right:int) -> int:
         """Makes a partition and returns index of middle element"""
-        l = left
         pivot = right - 1
-        r = pivot - 1
+        right = pivot - 1
 
-        while l < r:
-            if arr[l] >= arr[pivot] and arr[r] < arr[pivot]:
-                _swap(arr, l, r)
-            
-            if arr[l] < arr[pivot]:
-                l += 1
-            
-            if arr[r] >= arr[pivot]:
-                r -= 1
-        
-        _swap(arr, l, pivot)
-        pivot = l
+        while left < right:
+            if arr[left] >= arr[pivot] and arr[right] < arr[pivot]:
+                _swap(arr, left, right)
+
+            if arr[left] < arr[pivot]:
+                left += 1
+
+            if arr[right] >= arr[pivot]:
+                right -= 1
+
+        _swap(arr, left, pivot)
+        pivot = left
 
         return pivot
-    
+
     def _sort(left:int, right:int):
-        if left - right <= 1: return
-        
+
+        if left - right <= 1:
+            return
+
         pivot = _partition(left, right)
-        
+
         _sort(left, pivot)
         _sort(pivot+1, right)
 

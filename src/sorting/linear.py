@@ -4,21 +4,21 @@ from src.core.errors import OutOfRangeError
 from src.core.logging import log_and_raise
 from src.sorting.comparison import bubble_sort
 
-def _get_min_max(arr: list[int]) -> tuple[int, int]: 
+def _get_min_max(arr: list[int]) -> tuple[int, int]:
     cur_min, cur_max = 0, 0
 
     for n in arr:
         if n < cur_min:
             cur_min = n
-        
+
         if n > cur_max:
             cur_max = n
     return cur_min, cur_max
 
 def counting_sort(arr: list) -> list[int]:
-    
+
     min_n, max_n = _get_min_max(arr)
-    
+
     shift = 0
     if min_n < 0:
         shift = abs(min_n)
@@ -28,7 +28,7 @@ def counting_sort(arr: list) -> list[int]:
     counts = [0 for _ in range(min_n, max_n+1)]
     for n in arr:
         counts[n+shift] +=1
-    
+
     return [value-shift for value, count in enumerate(counts, start=min_n) for _ in range(count)]
 
 def flatten(arrays: list[list]) -> list:
@@ -39,16 +39,16 @@ def radix_sort(arr: list, base: int = 10) -> list[int]:
     Radix sort only works for positive numbers
     """
     if any(n < 0 for n in arr):
-        log_and_raise(NegativeNumberError("Radix sort only works for positive numbers")) 
+        log_and_raise(NegativeNumberError("Radix sort only works for positive numbers"))
 
     if not arr:
         return arr
-    
+
     if len(arr) ==1:
         return arr
 
-    buckets = [[] for _ in range(base)]
-    
+    buckets: list[list[int]] = [[] for _ in range(base)]
+
     max_n = max(arr)
     n_digits = len(str(abs(max_n)))
 
@@ -62,7 +62,7 @@ def radix_sort(arr: list, base: int = 10) -> list[int]:
             exp = base**i
             digit = (n // exp) % base
             buckets[digit].append(n)
-        
+
         arr = flatten(buckets)
         buckets = [[] for _ in range(base)]
 
@@ -79,13 +79,12 @@ def bucket_sort(arr: list[float], n_buckets: int | None = 10) -> list[float]:
         n_buckets = 10
 
 
-    buckets = [[] for _ in range(n_buckets)]
+    buckets: list[list[float]] = [[] for _ in range(n_buckets)]
     for n in arr:
         index = int(n * n_buckets)
         buckets[index].append(n)
 
     for i, bucket in enumerate(buckets):
         buckets[i] = bubble_sort(bucket)
-    
-    return flatten(buckets)
 
+    return flatten(buckets)
